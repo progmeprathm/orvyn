@@ -7,6 +7,7 @@ import Signup from './pages/Signup';
 import DashboardLayout from './layouts/DashboardLayout';
 import Home from './pages/dashboard/Home';
 import Profile from './pages/dashboard/Profile';
+import Landing from './pages/Landing';
 
 export default function App() {
   const [isReady, setIsReady] = useState(false);
@@ -37,7 +38,7 @@ export default function App() {
     <div className="min-h-screen bg-background text-textPrimary selection:bg-primary/30 font-sans">
       <Routes>
         <Route path="/" element={
-          isAuthenticated ? <Navigate to="/dashboard" replace /> : <Navigate to="/login" replace />
+          isAuthenticated ? <Navigate to="/dashboard" replace /> : <Landing />
         } />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
