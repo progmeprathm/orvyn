@@ -24,7 +24,7 @@ export default function Signup() {
     try {
       const session = await AuthUseCases.signup(email, password, name, username);
       setSession(session.user, session.profile);
-      navigate('/dashboard');
+      navigate('/onboarding');
     } catch (err: any) {
       setError(err.message || "Failed to sign up.");
     } finally {

@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
-import { Globe2, Users, Layers, ArrowRight, Sparkles } from 'lucide-react';
+import { Sparkles, ArrowRight, Globe2, Users, Layers } from 'lucide-react';
+import { useSessionStore } from '../store/useSessionStore';
 
 export default function Landing() {
+  const { isAuthenticated } = useSessionStore();
+
   return (
     <div className="min-h-screen bg-background selection:bg-primary/30 flex flex-col relative overflow-hidden">
       {/* Background decorations */}
@@ -18,14 +21,24 @@ export default function Landing() {
           <span className="font-display text-2xl font-bold tracking-tight">Orvyn</span>
         </div>
         <div className="flex items-center gap-4">
-          <Link to="/login" className="hidden md:block text-textSecondary hover:text-textPrimary font-medium transition-colors">
-            Log in
-          </Link>
-          <Link to="/signup">
-            <Button variant="primary" className="rounded-full px-6">
-              Get Started
-            </Button>
-          </Link>
+          {isAuthenticated ? (
+            <Link to="/dashboard">
+              <Button variant="primary" className="rounded-full px-6">
+                Go to Dashboard
+              </Button>
+            </Link>
+          ) : (
+            <>
+              <Link to="/login" className="hidden md:block text-textSecondary hover:text-textPrimary font-medium transition-colors">
+                Log in
+              </Link>
+              <Link to="/signup">
+                <Button variant="primary" className="rounded-full px-6">
+                  Get Started
+                </Button>
+              </Link>
+            </>
+          )}
         </div>
       </nav>
 
@@ -48,17 +61,28 @@ export default function Landing() {
         </p>
 
         <div className="flex flex-col sm:flex-row items-center gap-4 animate-in slide-in-from-bottom-8 fade-in duration-1000 delay-300 fill-mode-both">
-          <Link to="/signup">
-            <Button variant="primary" size="lg" className="rounded-full px-8 text-lg group">
-              Join Orvyn today
-              <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-            </Button>
-          </Link>
-          <Link to="/login">
-            <Button variant="secondary" size="lg" className="rounded-full px-8 text-lg">
-              Log into your account
-            </Button>
-          </Link>
+          {isAuthenticated ? (
+            <Link to="/dashboard">
+              <Button variant="primary" size="lg" className="rounded-full px-8 text-lg group">
+                Enter your Dashboard
+                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </Link>
+          ) : (
+            <>
+              <Link to="/signup">
+                <Button variant="primary" size="lg" className="rounded-full px-8 text-lg group">
+                  Join Orvyn today
+                  <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </Link>
+              <Link to="/login">
+                <Button variant="secondary" size="lg" className="rounded-full px-8 text-lg">
+                  Log into your account
+                </Button>
+              </Link>
+            </>
+          )}
         </div>
       </main>
 

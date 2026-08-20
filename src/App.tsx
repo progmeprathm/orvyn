@@ -4,6 +4,7 @@ import { useSessionStore } from './store/useSessionStore';
 import { AuthUseCases } from './application/authUseCases';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Onboarding from './pages/Onboarding';
 import DashboardLayout from './layouts/DashboardLayout';
 import Home from './pages/dashboard/Home';
 import Profile from './pages/dashboard/Profile';
@@ -37,11 +38,10 @@ export default function App() {
   return (
     <div className="min-h-screen bg-background text-textPrimary selection:bg-primary/30 font-sans">
       <Routes>
-        <Route path="/" element={
-          isAuthenticated ? <Navigate to="/dashboard" replace /> : <Landing />
-        } />
+        <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/onboarding" element={isAuthenticated ? <Onboarding /> : <Navigate to="/signup" />} />
         
         {/* Protected Dashboard Routes */}
         <Route path="/dashboard" element={isAuthenticated ? <DashboardLayout /> : <Navigate to="/login" replace />}>
